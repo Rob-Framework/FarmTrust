@@ -18,11 +18,19 @@ function App() {
         sethaveMetamask(false);
       }
       sethaveMetamask(true);
+      checkIfWasConnected();
     };
     checkMetamaskAvailability();
   }, []);
 
-  const connectWallet = async () => {
+  const checkIfWasConnected = () => {
+    const wasConnected = localStorage.getItem("wallet_address");
+    if (wasConnected) {
+      connectWallet();
+    }
+  };
+
+  const connectWallet = async (checkedWallet = "") => {
     try {
       if (!ethereum) {
         sethaveMetamask(false);
@@ -30,13 +38,21 @@ function App() {
       const accounts = await ethereum.request({
         method: "eth_requestAccounts",
       });
+
+      if (checkedWallet) {
+        if (accounts[0] == checkedWallet) {
+          localStorage.removeItem("wallet_address");
+          return;
+        }
+      }
+
       setAccountAddress(accounts[0]);
       setIsConnected(true);
 
       const balance = await provider.getBalance(accounts[0]);
-      // Convert balance from wei to ether
       const balanceInEther = ethers.formatEther(balance);
       setAccountBalance(balanceInEther);
+      localStorage.setItem("wallet_address", accounts[0]);
     } catch (error) {
       console.log(error);
       setIsConnected(false);
@@ -48,6 +64,7 @@ function App() {
       setIsConnected(false);
       setAccountAddress("");
       setAccountBalance(0);
+      localStorage.removeItem("wallet_address");
     } catch (error) {
       console.log(error);
     }
