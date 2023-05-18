@@ -41,7 +41,7 @@ export default function MainPage(props) {
       ) : (
         <div>
           {selectedFarm ? (
-            <FarmView farm={selectedFarm} goBack={goBack} />
+            <FarmView farm={selectedFarm} goBack={goBack}  donate={props.donate}/>
           ) : (
             <div>
               {" "}

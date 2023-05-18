@@ -70,6 +70,27 @@ function App() {
     }
   };
 
+  const donate = async (amount, to) => {
+    if (!ethereum) {
+      sethaveMetamask(false);
+      return;
+    }
+
+    if (amount <= 0 || !to || !accountAddress || to == accountAddress) {
+      return;
+    }
+
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+
+    const tx = await signer.sendTransaction({
+      to: to,
+      value: ethers.utils.parseEther(amount),
+    });
+
+    console.log("sent tx", tx);
+  };
+
   return (
     <div className="App">
       <header className="App-header">
@@ -80,6 +101,7 @@ function App() {
                 accountAddress={accountAddress}
                 accountBalance={accountBalance}
                 disconnectWallet={disconnectWallet}
+                donate={donate}
               />
             ) : (
               <Login connectWallet={connectWallet} />
