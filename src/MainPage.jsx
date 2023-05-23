@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import AddFarm from "./AddFarm";
 import FarmList from "./FarmList";
 import ContactForm from "./ContactForm";
+import Blog from "./Blog";
+import Explore from "./Explore";
 
 export default function MainPage(props) {
   const [farmList, setFarmList] = useState([]);
@@ -21,6 +23,7 @@ export default function MainPage(props) {
     setAddFarm(true);
     setSelectedFarm(null);
   };
+
   const goBack = () => {
     setAddFarm(false);
     setSelectedFarm(null);
@@ -36,7 +39,9 @@ export default function MainPage(props) {
     <div>
       <button onClick={() => setMenu(1)}>Main Menu</button>
       <button onClick={() => setMenu(2)}>Contact Us</button>
-      {menu == 1 ? (
+      <button onClick={() => setMenu(3)}>Blogs</button>
+      <button onClick={() => setMenu(4)}>Explore</button>
+      {menu === 1 ? (
         <div>
           {addFarm ? (
             <AddFarm
@@ -54,8 +59,7 @@ export default function MainPage(props) {
                 />
               ) : (
                 <div>
-                  {" "}
-                  <buttom onClick={goToAddFarm}>Add Farm</buttom>
+                  <button onClick={goToAddFarm}>Add Farm</button>
                   <button onClick={loadFarms}>Refresh</button>
                   <div className="card">
                     <div className="card-row">
@@ -80,9 +84,17 @@ export default function MainPage(props) {
             </div>
           )}
         </div>
-      ) : (
+      ) : menu === 2 ? (
         <div>
           <ContactForm />
+        </div>
+      ) : menu === 3 ? (
+        <div>
+          <Blog />
+        </div>
+      ) : (
+        <div>
+          <Explore />
         </div>
       )}
     </div>
