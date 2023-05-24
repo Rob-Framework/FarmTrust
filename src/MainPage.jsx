@@ -90,7 +90,6 @@ export default function MainPage(props) {
     }
   }, [darkMode]);
 
-  console.log("MainPage rendered ", selectedFarm);
   return (
     <div>
       <div className="profile-dropdown">
