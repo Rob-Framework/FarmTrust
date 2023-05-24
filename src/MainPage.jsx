@@ -5,6 +5,7 @@ import ContactForm from "./ContactForm";
 import Blog from "./Blog";
 import "./MainPage.css";
 import FarmView from "./FarmView";
+import storage from "./storage";
 
 export default function MainPage(props) {
   const [farmList, setFarmList] = useState([]);
@@ -21,7 +22,8 @@ export default function MainPage(props) {
   }, []);
 
   const loadFarms = async () => {
-    setFarmList([]);
+    const farms = await storage.instance.getAllFiles();
+    setFarmList(farms);
   };
 
   const goToAddFarm = () => {
@@ -44,11 +46,12 @@ export default function MainPage(props) {
     return farm;
   };
 
-  const addFarmFunction = (farm) => {
+  const addFarmFunction = async (farm) => {
     console.log(farm);
     const farms = [...farmList];
     farms.push(farm);
     setFarmList(farms);
+    await storage.instance.uploadJson(farm.id, JSON.stringify(farm));
     filterFarms();
     setSearchTerm("");
   };

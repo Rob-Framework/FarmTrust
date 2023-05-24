@@ -1,4 +1,5 @@
 import { useState } from "react";
+import storage from "./storage";
 
 export default function AddFarm(props) {
   const [title, setTitle] = useState("");
@@ -7,7 +8,15 @@ export default function AddFarm(props) {
   const [harvested, setHarvested] = useState(0);
 
   const addFarm = async () => {
-    const id = "asdfasdf"; //get unique id
+    if (!title || !description || !harvestable || !harvested) {
+      return;
+    }
+
+    if (await storage.instance.nameExists(title)) {
+      return;
+    }
+
+    const id = await storage.instance.getUniquieId();
 
     const farmObject = {
       id: id,
