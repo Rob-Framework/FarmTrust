@@ -9,7 +9,7 @@ export default function FarmView(props) {
 
   return (
     <div>
-      <h2>{props.farm.title}</h2> - {props.farm.id} - {props.farm.owner}
+      <h2>{props.farm.name}</h2> - {props.farm.id} - {props.farm.owner}
       <br />
       <h3>Description: {props.farm.description}</h3>
       <h3>Staked: {props.farm.staked}</h3>

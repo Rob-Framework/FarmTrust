@@ -1,11 +1,14 @@
-export default function FarmList(prop) {
+export default function FarmList(props) {
   const renderFarms = () => {
-    const farms = prop.farms ? props.farms : [];
+    const farms = props.farms ? props.farms : [];
     const listItems = farms.map((farm) => (
       <div key={farm.id}>
-        <h2>{farm.title}</h2> - {farm.id} - {farm.owner}
+        <h2>{farm.name}</h2> {farm.id} - {farm.owner}
         <br />
         <h3>Description: {farm.description}</h3>
+        <button onClick={() => {
+          props.selectFarm(farm.id);
+        }}>View</button>
       </div>
     ));
     return listItems;

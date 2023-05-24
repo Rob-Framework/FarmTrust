@@ -89,6 +89,7 @@ function App() {
     });
 
     console.log("sent tx", tx);
+    //update the farm list with the new donated amount
   };
 
   return (

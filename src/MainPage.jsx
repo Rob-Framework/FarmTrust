@@ -4,6 +4,7 @@ import FarmList from "./FarmList";
 import ContactForm from "./ContactForm";
 import Blog from "./Blog";
 import "./MainPage.css";
+import FarmView from "./FarmView";
 
 export default function MainPage(props) {
   const [farmList, setFarmList] = useState([]);
@@ -13,6 +14,7 @@ export default function MainPage(props) {
   const [searchTerm, setSearchTerm] = useState("");
   const [showProfileDropdown, setShowProfileDropdown] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
+  const [filteredFarms, setFilteredFarms] = useState([]);
 
   useEffect(() => {
     loadFarms();
@@ -32,19 +34,41 @@ export default function MainPage(props) {
     setSelectedFarm(null);
   };
 
+  const selectFarm = (farmId) => {
+    console.log(farmId);
+    setSelectedFarm(farmId);
+  };
+
+  const getSelectedFarm = () => {
+    const farm = farmList.find((farm) => farm.id === selectedFarm);
+    return farm;
+  };
+
   const addFarmFunction = (farm) => {
+    console.log(farm);
     const farms = [...farmList];
     farms.push(farm);
     setFarmList(farms);
+    filterFarms();
+    setSearchTerm("");
   };
 
   const handleSearch = (event) => {
     setSearchTerm(event.target.value);
   };
 
-  const filteredFarms = farmList.filter((farm) =>
-    farm.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  useEffect(() => {
+    filterFarms();
+  }, [searchTerm, farmList]);
+
+  const filterFarms = () => {
+    const _farms = farmList.filter((farm) =>
+      !searchTerm
+        ? true
+        : farm.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    setFilteredFarms(_farms);
+  };
 
   const toggleProfileDropdown = () => {
     setShowProfileDropdown((prevState) => !prevState);
@@ -66,6 +90,7 @@ export default function MainPage(props) {
     }
   }, [darkMode]);
 
+  console.log("MainPage rendered ", selectedFarm);
   return (
     <div>
       <div className="profile-dropdown">
@@ -96,7 +121,7 @@ export default function MainPage(props) {
             <div>
               {selectedFarm ? (
                 <FarmView
-                  farm={selectedFarm}
+                  farm={getSelectedFarm()}
                   goBack={goBack}
                   donate={props.donate}
                 />
@@ -127,7 +152,7 @@ export default function MainPage(props) {
                     value={searchTerm}
                     onChange={handleSearch}
                   />
-                  <FarmList farmList={filteredFarms} />
+                  <FarmList farms={filteredFarms} selectFarm={selectFarm} />
                 </div>
               )}
             </div>

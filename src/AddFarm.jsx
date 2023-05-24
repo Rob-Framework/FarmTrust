@@ -7,12 +7,12 @@ export default function AddFarm(props) {
   const [harvested, setHarvested] = useState(0);
 
   const addFarm = async () => {
-    const id = 0; //get unique id
+    const id = "asdfasdf"; //get unique id
 
     const farmObject = {
       id: id,
       owner: props.address,
-      title: title,
+      name: title,
       description: description,
       staked: 0,
       harvestable: harvestable,
@@ -21,6 +21,7 @@ export default function AddFarm(props) {
     };
 
     props.addFarm(farmObject);
+    props.goBack();
   };
 
   return (
