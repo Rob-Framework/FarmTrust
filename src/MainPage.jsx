@@ -3,13 +3,16 @@ import AddFarm from "./AddFarm";
 import FarmList from "./FarmList";
 import ContactForm from "./ContactForm";
 import Blog from "./Blog";
-import Explore from "./Explore";
+import "./MainPage.css";
 
 export default function MainPage(props) {
   const [farmList, setFarmList] = useState([]);
   const [addFarm, setAddFarm] = useState(false);
   const [selectedFarm, setSelectedFarm] = useState(null);
   const [menu, setMenu] = useState(1);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [showProfileDropdown, setShowProfileDropdown] = useState(false);
+  const [darkMode, setDarkMode] = useState(false);
 
   useEffect(() => {
     loadFarms();
@@ -35,12 +38,52 @@ export default function MainPage(props) {
     setFarmList(farms);
   };
 
+  const handleSearch = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
+  const filteredFarms = farmList.filter((farm) =>
+    farm.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const toggleProfileDropdown = () => {
+    setShowProfileDropdown((prevState) => !prevState);
+  };
+
+  const handleProfileOptionClick = (option) => {
+    if (option === "Profile") {
+      // Handle "Profile" option click
+    } else if (option === "Dark Mode") {
+      setDarkMode((prevMode) => !prevMode);
+    }
+  };
+
+  useEffect(() => {
+    if (darkMode) {
+      document.body.classList.add("dark-mode");
+    } else {
+      document.body.classList.remove("dark-mode");
+    }
+  }, [darkMode]);
+
   return (
     <div>
+      <div className="profile-dropdown">
+        <button onClick={toggleProfileDropdown}>Your Profile</button>
+        {showProfileDropdown && (
+          <div className="profile-options">
+            <button onClick={() => handleProfileOptionClick("Profile")}>
+              Profile
+            </button>
+            <button onClick={() => handleProfileOptionClick("Dark Mode")}>
+              {darkMode ? "Light Mode" : "Dark Mode"}
+            </button>
+          </div>
+        )}
+      </div>
       <button onClick={() => setMenu(1)}>Main Menu</button>
       <button onClick={() => setMenu(2)}>Contact Us</button>
       <button onClick={() => setMenu(3)}>Blogs</button>
-      <button onClick={() => setMenu(4)}>Explore</button>
       {menu === 1 ? (
         <div>
           {addFarm ? (
@@ -78,7 +121,13 @@ export default function MainPage(props) {
                     <p className="info">🎉 Connected Successfully</p>
                     <button onClick={props.disconnectWallet}>Disconnect</button>
                   </div>
-                  <FarmList farmList={farmList} />
+                  <input
+                    type="text"
+                    placeholder="Search farms..."
+                    value={searchTerm}
+                    onChange={handleSearch}
+                  />
+                  <FarmList farmList={filteredFarms} />
                 </div>
               )}
             </div>
@@ -93,9 +142,7 @@ export default function MainPage(props) {
           <Blog />
         </div>
       ) : (
-        <div>
-          <Explore />
-        </div>
+        <div></div>
       )}
     </div>
   );

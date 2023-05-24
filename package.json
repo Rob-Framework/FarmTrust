@@ -9,10 +9,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@mui/material": "^5.13.1",
+    "@mui/material": "^5.13.2",
     "bootstrap": "^5.2.3",
+    "dropdown": "^0.2.0",
     "ethers": "^6.3.0",
+    "mui": "^0.0.1",
     "react": "^18.2.0",
+    "react-accessible-dropdown-menu-hook": "^4.0.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.11.2",
     "web-vitals": "^3.3.1",
