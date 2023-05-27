@@ -35,6 +35,7 @@ export default class storage {
       let data = await json.text();
 
       try {
+        data = data.substring(data.indexOf("{"));
         const jsonData = JSON.parse(data);
         filesJson.push(jsonData);
       } catch (error) {
@@ -73,5 +74,5 @@ export default class storage {
   nameExists = async (name) => {
     const jsons = await this.getAllFiles();
     return jsons.find((json) => json.name === name);
-  }
+  };
 }
