@@ -13,8 +13,6 @@ export default function MainPage(props) {
   const [selectedFarm, setSelectedFarm] = useState(null);
   const [menu, setMenu] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
-  const [showProfileDropdown, setShowProfileDropdown] = useState(false);
-  const [darkMode, setDarkMode] = useState(false);
   const [filteredFarms, setFilteredFarms] = useState([]);
 
   useEffect(() => {
@@ -73,41 +71,8 @@ export default function MainPage(props) {
     setFilteredFarms(_farms);
   };
 
-  const toggleProfileDropdown = () => {
-    setShowProfileDropdown((prevState) => !prevState);
-  };
-
-  const handleProfileOptionClick = (option) => {
-    if (option === "Profile") {
-      // Handle "Profile" option click
-    } else if (option === "Dark Mode") {
-      setDarkMode((prevMode) => !prevMode);
-    }
-  };
-
-  useEffect(() => {
-    if (darkMode) {
-      document.body.classList.add("dark-mode");
-    } else {
-      document.body.classList.remove("dark-mode");
-    }
-  }, [darkMode]);
-
   return (
     <div>
-      <div className="profile-dropdown">
-        <button onClick={toggleProfileDropdown}>Your Profile</button>
-        {showProfileDropdown && (
-          <div className="profile-options">
-            <button onClick={() => handleProfileOptionClick("Profile")}>
-              Profile
-            </button>
-            <button onClick={() => handleProfileOptionClick("Dark Mode")}>
-              {darkMode ? "Light Mode" : "Dark Mode"}
-            </button>
-          </div>
-        )}
-      </div>
       <button onClick={() => setMenu(1)}>Main Menu</button>
       <button onClick={() => setMenu(2)}>Contact Us</button>
       <button onClick={() => setMenu(3)}>Blogs</button>
@@ -120,7 +85,7 @@ export default function MainPage(props) {
               address={props.accountAddress}
             />
           ) : (
-            <div>
+            <div className="centered-farm">
               {selectedFarm ? (
                 <FarmView
                   farm={getSelectedFarm()}
@@ -131,6 +96,14 @@ export default function MainPage(props) {
                 <div>
                   <button onClick={goToAddFarm}>Add Farm</button>
                   <button onClick={loadFarms}>Refresh</button>
+                  <input
+                    className="search-bar"
+                    type="text"
+                    placeholder="Search farms..."
+                    value={searchTerm}
+                    onChange={handleSearch}
+                  />
+                  <FarmList farms={filteredFarms} selectFarm={selectFarm} />
                   <div className="card">
                     <div className="card-row">
                       <h3>Wallet Address:</h3>
@@ -139,29 +112,22 @@ export default function MainPage(props) {
                         {props.accountAddress.slice(38, 42)}
                       </p>
                     </div>
+
                     <div className="card-row">
                       <h3>Wallet Balance:</h3>
                       <p>{props.accountBalance}</p>
                     </div>
                   </div>
-                  <div>
-                    <p className="info">🎉 Connected Successfully</p>
+                  <div className="disconnect-button">
                     <button onClick={props.disconnectWallet}>Disconnect</button>
                   </div>
-                  <input
-                    type="text"
-                    placeholder="Search farms..."
-                    value={searchTerm}
-                    onChange={handleSearch}
-                  />
-                  <FarmList farms={filteredFarms} selectFarm={selectFarm} />
                 </div>
               )}
             </div>
           )}
         </div>
       ) : menu === 2 ? (
-        <div>
+        <div className="Contactform">
           <ContactForm />
         </div>
       ) : menu === 3 ? (

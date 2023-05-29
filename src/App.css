@@ -5,6 +5,8 @@
   align-items: center;
   flex-direction: column;
   row-gap: 20px;
+  top: -130px;
+  right: -400px;
 }
 
 #root {
@@ -41,9 +43,14 @@
     animation: logo-spin infinite 20s linear;
   }
 }
-
 .card {
-  padding: 2em;
+  display: subgrid;
+  position: fixed;
+  top: 0;
+  right: 0;
+  margin: 10px;
+  padding: 0;
+  transform: translateX(-150%);
 }
 
 .read-the-docs {

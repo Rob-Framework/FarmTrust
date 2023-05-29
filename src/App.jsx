@@ -3,6 +3,7 @@ import "./App.css";
 import { ethers } from "ethers";
 import Login from "./Login";
 import MainPage from "./MainPage";
+import React from "react";
 
 function App() {
   const [haveMetamask, sethaveMetamask] = useState(true);
