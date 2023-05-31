@@ -94,83 +94,102 @@ export default function MainPage(props) {
   }, [darkMode]);
 
   return (
-    <div>
-      <div className="profile-dropdown">
-        <button onClick={toggleProfileDropdown}>Your Profile</button>
-        {showProfileDropdown && (
-          <div className="profile-options">
-            <button onClick={() => handleProfileOptionClick("Profile")}>
-              Profile
-            </button>
-            <button onClick={() => handleProfileOptionClick("Dark Mode")}>
-              {darkMode ? "Light Mode" : "Dark Mode"}
-            </button>
+    <div className="container">
+      <div className="row d-flex">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <div className="col-sm-3">
+            <div className="logo">
+              <a class="navbar-brand" href="#">Farm Trust</a>
+              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+            </div>
           </div>
-        )}
-      </div>
-      <button onClick={() => setMenu(1)}>Main Menu</button>
-      <button onClick={() => setMenu(2)}>Contact Us</button>
-      <button onClick={() => setMenu(3)}>Blogs</button>
-      {menu === 1 ? (
-        <div>
-          {addFarm ? (
-            <AddFarm
-              goBack={goBack}
-              addFarm={addFarmFunction}
-              address={props.accountAddress}
-            />
-          ) : (
-            <div>
-              {selectedFarm ? (
-                <FarmView
-                  farm={getSelectedFarm()}
-                  goBack={goBack}
-                  donate={props.donate}
-                />
-              ) : (
-                <div>
-                  <button onClick={goToAddFarm}>Add Farm</button>
-                  <button onClick={loadFarms}>Refresh</button>
-                  <div className="card">
-                    <div className="card-row">
-                      <h3>Wallet Address:</h3>
-                      <p>
-                        {props.accountAddress.slice(0, 4)}...
-                        {props.accountAddress.slice(38, 42)}
-                      </p>
-                    </div>
-                    <div className="card-row">
-                      <h3>Wallet Balance:</h3>
-                      <p>{props.accountBalance}</p>
-                    </div>
-                  </div>
-                  <div>
-                    <p className="info">🎉 Connected Successfully</p>
-                    <button onClick={props.disconnectWallet}>Disconnect</button>
-                  </div>
-                  <input
-                    type="text"
-                    placeholder="Search farms..."
-                    value={searchTerm}
-                    onChange={handleSearch}
-                  />
-                  <FarmList farms={filteredFarms} selectFarm={selectFarm} />
+          <div className="col-sm-9 d-flex justify-content-end">
+            <button onClick={() => setMenu(1)}>Main Menu</button>
+            <button onClick={() => setMenu(2)}>Contact Us</button>
+            <button onClick={() => setMenu(3)}>Blogs</button>
+
+            <div className="profile-dropdown">
+              <button onClick={toggleProfileDropdown}>Your Profile</button>
+              {showProfileDropdown && (
+                <div className="profile-options">
+                  <button onClick={() => handleProfileOptionClick("Profile")}>
+                    Profile
+                  </button>
+                  <button onClick={() => handleProfileOptionClick("Dark Mode")}>
+                    {darkMode ? "Light Mode" : "Dark Mode"}
+                  </button>
                 </div>
               )}
             </div>
+          </div>
+        </nav>
+      </div>
+      <div className="row d-flex">
+        <div className="12">
+          {menu === 1 ? (
+            <div>
+              {addFarm ? (
+                <AddFarm
+                  goBack={goBack}
+                  addFarm={addFarmFunction}
+                  address={props.accountAddress}
+                />
+              ) : (
+                <div>
+                  {selectedFarm ? (
+                    <FarmView
+                      farm={getSelectedFarm()}
+                      goBack={goBack}
+                      donate={props.donate}
+                    />
+                  ) : (
+                    <div>
+                      <button onClick={goToAddFarm}>Add Farm</button>
+                      <button onClick={loadFarms}>Refresh</button>
+                      <div className="card">
+                        <div className="card-row">
+                          <h3>Wallet Address:</h3>
+                          <p>
+                            {props.accountAddress.slice(0, 4)}...
+                            {props.accountAddress.slice(38, 42)}
+                          </p>
+                        </div>
+                        <div className="card-row">
+                          <h3>Wallet Balance:</h3>
+                          <p>{props.accountBalance}</p>
+                        </div>
+                      </div>
+                      <div>
+                        <p className="info">🎉 Connected Successfully</p>
+                        <button onClick={props.disconnectWallet}>Disconnect</button>
+                      </div>
+                      <input
+                        type="text"
+                        placeholder="Search farms..."
+                        value={searchTerm}
+                        onChange={handleSearch}
+                      />
+                      <FarmList farms={filteredFarms} selectFarm={selectFarm} />
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
+          ) : menu === 2 ? (
+            <div>
+              <ContactForm />
+            </div>
+          ) : menu === 3 ? (
+            <div>
+              <Blog />
+            </div>
+          ) : (
+            <div></div>
           )}
         </div>
-      ) : menu === 2 ? (
-        <div>
-          <ContactForm />
-        </div>
-      ) : menu === 3 ? (
-        <div>
-          <Blog />
-        </div>
-      ) : (
-        <div></div>
-      )}
+      </div>
     </div>
   );
 }
