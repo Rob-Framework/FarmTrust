@@ -8,6 +8,10 @@
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
+a.navbar-brand {
+  font-size: 35px;
+  color: #082930;
+}
 
 .menu-container button {
   margin: 0 10px;
