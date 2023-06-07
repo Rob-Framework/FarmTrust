@@ -1,0 +1,149 @@
+.menu-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  background-color: #f2f2f2;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+nav.navbar.navbar-expand-lg.navbar-light.bg-light {
+  box-shadow: 0px 2px 5px rgba(0,0,0,0.25);
+  background-color: #fff;
+}
+
+a.navbar-brand {
+  font-size: 35px;
+  color: #082930;
+}
+
+.menu-container button {
+  margin: 0 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+  background-color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.menu-container button:hover {
+  background-color: #ddd;
+}
+
+.menu-container button:focus {
+  outline: none;
+}
+
+.menu-container button.active {
+  background-color: #e017d6;
+  color: #fff;
+}
+
+.login-page {
+  background: linear-gradient(140deg, rgba(0, 2, 2, 1) 0%, #082930 15%, rgb(47 166 182) 83%, rgba(76, 226, 227, 1) 100%);
+  color: #fff;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+
+img.robLogo {
+  width: 100%;
+  max-width: 30%;
+  filter: invert(1);
+}
+
+.img-wrapper img {
+  border-radius: 100%;
+  max-width: 70%;
+  margin: auto;
+}
+
+.img-wrapper.text-center,
+.page-main {
+  position: relative;
+}
+
+.img-wrapper.text-center:before {
+  content: '';
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(-140deg, rgba(0, 2, 2, 1) 0%, #082930 15%, rgb(47 166 182) 83%, rgba(76, 226, 227, 1) 100%);
+  bottom: -1px;
+  border-radius: 100%;
+  left: 20%;
+}
+
+.login-page:before,
+.page-main:before {
+  content: '';
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  background-color: transparent;
+  border-radius: 100%;
+  border: 30px solid rgba(255, 255, 255, 0.05);
+  left: -6%;
+  top: 10%;
+}
+
+.page-main {
+  background: linear-gradient(-140deg, rgb(255 255 255) 0%, #ffffff 15%, rgba(240, 253, 253, 0.12) 59%, rgba(76, 226, 227, 0.12) 100%);
+  height: 100vh;
+  overflow-x: hidden;
+}
+
+.page-main:before {
+  border: 30px solid rgb(76 167 167 / 10%);
+}
+
+.page-main .card {
+  background-color: #fff;
+  border: none;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.25);
+}
+
+.login-page:after,
+.page-main:after {
+  content: '';
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  background-color: transparent;
+  border-radius: 100%;
+  border: 20px solid rgba(21, 83, 93, 0.1);
+  right: -3%;
+  bottom: 10%;
+}
+
+.App-header .btn {
+  background-color: #09f1c7;
+  padding: 10px 43px;
+  border-radius: 8px;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-top: 50px;
+  box-shadow: 0px 5px 0px 2px rgba(9, 241, 199, 0.25);
+}
+.flex-1{
+  flex: 1;
+}
+
+.App-header .btn:hover {
+  background-color: #01a285;
+}
+
+.login-text {
+  font-size: 40px;
+  margin-bottom: 0;
+}
